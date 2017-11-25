@@ -1,4 +1,4 @@
-package com.trucolotecnologia.sharedlistapp;
+package com.trucolotecnologia.sharedlistapp.views;
 
 import android.app.Activity;
 import android.content.Context;

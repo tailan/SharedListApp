@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.trucolotecnologia.sharedlistapp.LoginActivity">
+    tools:context="com.trucolotecnologia.sharedlistapp.views.LoginActivity">
 
     <EditText
         android:id="@+id/etPhoneNumber"
@@ -14,7 +14,9 @@
         android:hint="(00) 00000-0000"
         android:inputType="phone"
         tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="201dp" />
+        tools:layout_editor_absoluteY="201dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView"
@@ -22,7 +24,10 @@
         android:layout_height="wrap_content"
         android:text="Telefone"
         tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="176dp" />
+        tools:layout_editor_absoluteY="176dp"
+        android:layout_above="@+id/etPhoneNumber"
+        android:layout_alignStart="@+id/etPhoneNumber"
+        android:layout_marginBottom="11dp" />
 
     <Button
         android:id="@+id/button2"
@@ -33,5 +38,8 @@
         android:onClick="autenticar"
         android:text="Entrar"
         tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="252dp" />
-</android.support.constraint.ConstraintLayout>
+        tools:layout_editor_absoluteY="252dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="154dp" />
+</RelativeLayout>
