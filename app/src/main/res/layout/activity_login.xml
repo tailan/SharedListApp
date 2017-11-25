@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.trucolotecnologia.sharedlistapp.LoginActivity">
+
+    <EditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="156dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:hint="(00) 00000-0000"
+        android:inputType="phone"
+        tools:layout_editor_absoluteX="114dp"
+        tools:layout_editor_absoluteY="201dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefone"
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:onClick="autenticar"
+        android:text="Entrar"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="252dp" />
+</android.support.constraint.ConstraintLayout>

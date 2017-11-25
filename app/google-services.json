@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "791505856582",
+    "firebase_url": "https://sharedlistapp-ff436.firebaseio.com",
+    "project_id": "sharedlistapp-ff436",
+    "storage_bucket": "sharedlistapp-ff436.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791505856582:android:d8246bfdd94579ce",
+        "android_client_info": {
+          "package_name": "com.trucolotecnologia.sharedlistapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791505856582-veea3r95orskq58o1qtgjbcu86t56quj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXOBo00yKdxbCKMunzmRb_tPiUvP79DLU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
