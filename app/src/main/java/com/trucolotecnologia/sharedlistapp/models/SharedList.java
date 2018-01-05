@@ -1,11 +1,17 @@
 package com.trucolotecnologia.sharedlistapp.models;
 
-/**
- * Created by eafdecision8 on 25/11/17.
- */
+import java.util.ArrayList;
+
+
 
 public class SharedList {
 
-    public String description;
+    public String title;
     public double totalPrice;
+    public ArrayList<Item> items;
+
+    public SharedList(String title) {
+        this.title = title;
+        this.totalPrice = 0;
+    }
 }

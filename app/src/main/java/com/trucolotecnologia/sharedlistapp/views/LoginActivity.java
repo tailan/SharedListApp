@@ -14,67 +14,83 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.trucolotecnologia.sharedlistapp.R;
-import com.trucolotecnologia.sharedlistapp.models.SharedList;
+import com.trucolotecnologia.sharedlistapp.models.User;
 import com.trucolotecnologia.sharedlistapp.storage.PrefUtils;
 
 public class LoginActivity extends BaseActivity {
 
     private static final String TAG = "LoginActivity";
 
-    private FirebaseAuth mAuth;
-    public TextView tvPhoneNumber;
+    public EditText etEmail;
+    public EditText etNome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        boolean isAuthenticated = !PrefUtils.getFromPrefs(this,PrefUtils.KEY_PHONE_NUMBER,"").isEmpty();
+        etEmail = findViewById(R.id.etEmail);
+        etNome = findViewById(R.id.etNome);
 
-        if(isAuthenticated)
-            openActivity(SharedListsActivity.class);
+        boolean isAuthenticated = !PrefUtils.getFromPrefs(this, PrefUtils.KEY_EMAIL, "").isEmpty();
 
-        mAuth = FirebaseAuth.getInstance();
+
+         if(isAuthenticated) {
+             //loadUserFromSharedPreferences();
+             openActivity(SharedListsActivity.class);
+         }
+
+    }
+//
+//    private void loadUserFromSharedPreferences() {
+//        this.currentUser = new User(PrefUtils.getFromPrefs(this,PrefUtils.KEY_NOME,""),PrefUtils.getFromPrefs(this,PrefUtils.KEY_EMAIL,""));
+//    }
+
+    public void autenticar(View v) {
+
+        final String nome = etNome.getText().toString();
+        final String mail = etEmail.getText().toString();
+        final String uID = mail.split("@")[0];
+
+        PrefUtils.saveToPrefs(this, PrefUtils.KEY_EMAIL, mail);
+        PrefUtils.saveToPrefs(this, PrefUtils.KEY_NOME, nome);
+
+        if (getFireBaseAuth().getCurrentUser() == null)
+            loginUserFirebase(mail,uID,nome);
+
+
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        tvPhoneNumber = findViewById(R.id.etPhoneNumber);
-        tvPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
-        tvPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus)
-                    ((EditText)view).setText("+55");
-
-            }
-        });
-    }
-
-
-    public void autenticar(View v){
-
-
-        PrefUtils.saveToPrefs(this,PrefUtils.KEY_PHONE_NUMBER, tvPhoneNumber.getText().toString());
-
-        mAuth.signInAnonymously()
+    private void loginUserFirebase(final String mail,final String uID,final String nome){
+        getFireBaseAuth().signInWithEmailAndPassword(mail, uID)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInAnonymously:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
+                            writeNewUser(getCurrentUser(), uID);
                             openActivity(SharedListsActivity.class);
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            createUserFirebase(mail,uID,nome);
+                        }
+
+                    }
+                });
+    }
+    private void createUserFirebase(final String mail,final String uID,final String nome){
+        getFireBaseAuth().createUserWithEmailAndPassword(mail, uID)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            writeNewUser(getCurrentUser(), uID);
+                            openActivity(SharedListsActivity.class);
+
+                        } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
@@ -82,6 +98,10 @@ public class LoginActivity extends BaseActivity {
 
                     }
                 });
+    }
 
+    private void writeNewUser(User user, String uid) {
+
+        getDataBase().child("users").child(uid).setValue(user);
     }
 }

@@ -10,7 +10,8 @@ import android.preference.PreferenceManager;
 
 public class PrefUtils {
 
-    public static final String KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER";
+    public static final String KEY_EMAIL = "KEY_EMAIL";
+    public static final String KEY_NOME = "KEY_NOME";
 
     /**
      * Called to save supplied value in shared preferences against given key.
