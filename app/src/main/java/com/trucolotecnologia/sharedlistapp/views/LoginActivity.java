@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity {
 
         final String nome = etNome.getText().toString();
         final String mail = etEmail.getText().toString();
-        final String uID = mail.split("@")[0];
+        final String uID = mail.split("@")[0].replaceAll("\\W", "");
 
         PrefUtils.saveToPrefs(this, PrefUtils.KEY_EMAIL, mail);
         PrefUtils.saveToPrefs(this, PrefUtils.KEY_NOME, nome);
@@ -70,8 +70,9 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            writeNewUser(getCurrentUser(), uID);
+                            //tailankartolwriteNewUser(getCurrentUser(), uID);
                             openActivity(SharedListsActivity.class);
+                            finish();
 
                         } else {
                             createUserFirebase(mail,uID,nome);
@@ -102,6 +103,8 @@ public class LoginActivity extends BaseActivity {
 
     private void writeNewUser(User user, String uid) {
 
-        getDataBase().child("users").child(uid).setValue(user);
+        getDataBase().child("users").child(uid).child("email").setValue(user.email);
+        getDataBase().child("users").child(uid).child("name").setValue(user.name);
+        getDataBase().child("users").child(uid).child("uid").setValue(user.getUID());
     }
 }

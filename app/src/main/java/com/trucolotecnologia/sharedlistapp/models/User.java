@@ -17,6 +17,6 @@ public class User {
 
     public String getUID()
     {
-        return this.email.split("@")[0];
+        return this.email.split("@")[0].replaceAll("\\W", "");
     }
 }

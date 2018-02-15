@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">SharedListApp</string>
+    <string name="app_name">Shared List App</string>
     <string name="title_activity_shared_lists">SharedListsActivity</string>
 </resources>

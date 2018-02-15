@@ -32,6 +32,7 @@ public class SharedListsActivity extends BaseActivity {
         setContentView(R.layout.activity_shared_lists);
         findViews();
         loadListView();
+        setTitle(getString(R.string.app_name));
     }
 
     private void loadListView() {
