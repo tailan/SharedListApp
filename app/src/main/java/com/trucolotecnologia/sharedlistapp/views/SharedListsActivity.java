@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +21,6 @@ import com.trucolotecnologia.sharedlistapp.models.SharedList;
 import java.util.ArrayList;
 
 public class SharedListsActivity extends BaseActivity {
-
 
     ListView lvSharedLists;
     ArrayList<String> sharedLists;
@@ -78,8 +74,9 @@ public class SharedListsActivity extends BaseActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 // get total available quest
                                 if (dataSnapshot.getChildrenCount() == 1) ;
-                                    listRef.removeValue();
+                                listRef.removeValue();
                             }
+
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
@@ -88,6 +85,14 @@ public class SharedListsActivity extends BaseActivity {
                     }
                 });
                 return false;
+            }
+        });
+
+        lvSharedLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String listSelected = sharedLists.get(position);
+                openActivity(SharedListItemsActivity.class, "listName", listSelected);
             }
         });
 
@@ -124,5 +129,6 @@ public class SharedListsActivity extends BaseActivity {
 
         alert.show();
     }
+
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
@@ -29,6 +30,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public void openActivity(Class<?> calledActivity) {
         Intent myIntent = new Intent(this, calledActivity);
+        this.startActivity(myIntent);
+    }
+
+    public void openActivity(Class<?> calledActivity, String key, String value) {
+        Intent myIntent = new Intent(this, calledActivity);
+        myIntent.putExtra(key,value);
         this.startActivity(myIntent);
     }
 
